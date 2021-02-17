@@ -4,12 +4,12 @@ import { AppThunk, RootState } from '../../app/store';
 
 interface TransferState {
   id: string,
-  otherId: string,
+  connections: Array<string>,
 }
 
 const initialState: TransferState = {
   id: "",
-  otherId: "",
+  connections: [],
 };
 
 export const transferSlice = createSlice({
@@ -19,18 +19,19 @@ export const transferSlice = createSlice({
     setId: (state, action: PayloadAction<string>) => {
       state.id = action.payload;
     },
-    setOtherId: (state, action: PayloadAction<string>) => {
-      state.otherId = action.payload;
+    newConnection: (state, action: PayloadAction<string>) => {
+      state.connections.push(action.payload);
     }
   },
 });
 
-export const { setId, setOtherId } = transferSlice.actions;
+export const { setId, newConnection } = transferSlice.actions;
 
-export const connectPeer = (): AppThunk => dispatch => {
-  peer.connectPeer(dispatch)
-};
+export const newPeer = (): AppThunk => dispatch => peer.newPeer(dispatch);
+export const connectTo = (id: string): AppThunk => dispatch => peer.connectTo(id, dispatch);
+export const sendData = (id: string, data: string): AppThunk => dispatch => peer.sendData(id, data);
 
 export const selectId = (state: RootState) => state.transfer.id;
+export const selectConnections = (state: RootState) => state.transfer.connections
 
 export default transferSlice.reducer;
