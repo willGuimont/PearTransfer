@@ -29,7 +29,6 @@ export function Transfer() {
 
   return (
     <div>
-      Test <br/>
       Peer id:
       <div className={styles.peerId}>
         {id || "Please click to create Peer"}
