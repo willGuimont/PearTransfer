@@ -7,6 +7,7 @@ export var peer: Peer | undefined;
 let connections = new Map<string, Peer.DataConnection>();
 
 function onReceiveData(data: any, dispatch: ThunkDispatch<{}, {}, AnyAction>) {
+  // TODO allow to receive other informations, such as other connected users
   console.log(`Received data ${data}`);
   var blob = new Blob([data.file], { type: data.filetype });
   var url = URL.createObjectURL(blob);
