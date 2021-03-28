@@ -52,6 +52,7 @@ export function connectTo(id: string, dispatch: ThunkDispatch<{}, {}, AnyAction>
 }
 
 export function sendFile(connectionIds: Array<string>, file: File, dispatch: ThunkDispatch<{}, {}, AnyAction>) {
+  // TODO add to self file list too
   connectionIds.map(connId => {
     let conn = connections.get(connId);
     if (conn != undefined) {
