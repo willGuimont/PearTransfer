@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   selectId,
   selectConnections,
@@ -53,11 +53,11 @@ export function Transfer() {
         <br />
         <p>Files</p>
         <br />
-          {files.map((x, i) =>
-              <div key={x.id}>
-                <a href={x.url} download={x.name}>{x.name}</a>
-              </div>
-          )}
+        {files.map((x, i) =>
+          <div key={x.id}>
+            <a href={x.url} download={x.name}>{x.name}</a>
+          </div>
+        )}
       </div>
     </div>
   );
