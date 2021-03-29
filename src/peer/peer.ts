@@ -1,7 +1,8 @@
 import Peer from "peerjs";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
-import { FileDescription, setId, newConnection, disconnect, addFile, selectConnections } from '../features/transfer/transferSlice'
+import { FileDescription, setId, newConnection, disconnect, addFile } from '../features/transfer/transferSlice'
+import randomstring from 'randomstring'
 
 export var peer: Peer | undefined;
 let connections = new Map<string, Peer.DataConnection>();
@@ -32,7 +33,10 @@ function registerNewConnection(conn: Peer.DataConnection, dispatch: ThunkDispatc
 
 export function newPeer(dispatch: ThunkDispatch<{}, {}, AnyAction>) {
   console.log('New peer');
-  peer = new Peer(); // TODO custom id
+  let id = generateId();
+  peer = new Peer(id, {
+    secure: true
+  });
   peer.on("open", id => {
     dispatch(setId(id));
   });
@@ -42,6 +46,16 @@ export function newPeer(dispatch: ThunkDispatch<{}, {}, AnyAction>) {
   peer.on("close", () => {
     dispatch(disconnect())
   })
+}
+
+function generateId(): string {
+  let id = randomstring.generate({
+    length: 5,
+    charset: 'alphanumeric',
+    capitalization: 'uppercase',
+    readable: true,
+  });
+  return `Pear-${id}`;
 }
 
 export function connectTo(id: string, dispatch: ThunkDispatch<{}, {}, AnyAction>) {
