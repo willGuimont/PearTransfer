@@ -9,6 +9,11 @@ import {
   sendFile,
 } from './transferSlice';
 import styles from './Transfer.module.css';
+import { useParams } from 'react-router-dom';
+
+interface RouteParams {
+  id: string
+}
 
 export function Transfer() {
   const id = useSelector(selectId);
@@ -17,6 +22,8 @@ export function Transfer() {
   const dispatch = useDispatch();
   const [peerConnectionId, setPeerConnectionId] = useState("");
   const [data, setData] = useState("");
+
+  const routeParams = useParams<RouteParams>();
 
   let handleFiles = async (files: FileList | null) => {
     if (files != null) {
@@ -29,6 +36,7 @@ export function Transfer() {
 
   return (
     <div>
+      Test url params: {routeParams.id || "no url id"} <br/>
       Peer id:
       <div className={styles.peerId}>
         {id || "Please click to create Peer"}

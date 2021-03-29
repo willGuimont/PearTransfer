@@ -13,37 +13,37 @@ import { About } from './features/about/About';
 
 function App() {
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
-        </nav>
+    <div>
 
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/">
-            <React.StrictMode>
-              <ThemeProvider theme={theme}>
-                <div className="App">
-                  <header className="App-header">
-                    <Transfer />
-                  </header>
-                </div>
-              </ThemeProvider>
-            </React.StrictMode>
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+      <React.StrictMode>
+        <ThemeProvider theme={theme}>
+          <header className="App-header">
+            <div className="App">
+              <Router>
+                <nav>
+                  <ul>
+                    <li>
+                      <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                      <Link to="/about">About</Link>
+                    </li>
+                  </ul>
+                </nav>
+
+                <Switch>
+                  <Route path="/about">
+                    <About />
+                  </Route>
+                  <Route path="/:id" children={<Transfer />} />
+                  <Route path="/" children={<Transfer />} />
+                </Switch>
+              </Router>
+            </div>
+          </header>
+        </ThemeProvider>
+      </React.StrictMode>
+    </div>
   );
 }
 
