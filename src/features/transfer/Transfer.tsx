@@ -38,7 +38,7 @@ export function Transfer() {
     <div>
       Test url params: {routeParams.id || "no url id"} <br/>
       Peer id:
-      <div className={styles.peerId}>
+      <div>
         {id || "Please click to create Peer"}
         <br />
         <button onClick={() => dispatch(newPeer())}>
