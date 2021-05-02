@@ -1,6 +1,6 @@
 {
   "homepage": "https://willguimont.github.io/PearTransfer/",
-  "name": "our-data",
+  "name": "pear-transfer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -31,6 +31,9 @@
     "typescript": "^3.8.3",
     "watchpack": "^1.7.5"
   },
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -53,8 +56,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^3.1.0"
   }
 }
