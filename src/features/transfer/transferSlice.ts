@@ -1,67 +1,67 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import * as peer from '../../peer/peer'
-import { AppThunk, RootState } from '../../app/store';
-import { v4 as uuidv4 } from 'uuid';
+import {AppThunk, RootState} from '../../app/store';
+import {v4 as uuidv4} from 'uuid';
 
 export class FileDescription {
-  name: string;
-  url: string;
+    name: string;
+    url: string;
 
-  constructor(name: string, url: string) {
-    this.name = name;
-    this.url = url;
-  }
+    constructor(name: string, url: string) {
+        this.name = name;
+        this.url = url;
+    }
 }
 
 class FileInformation {
-  id: string;
-  name: string;
-  url: string;
+    id: string;
+    name: string;
+    url: string;
 
-  constructor(id: string, name: string, url: string) {
-    this.id = id;
-    this.name = name;
-    this.url = url;
-  }
+    constructor(id: string, name: string, url: string) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+    }
 }
 
 
 interface TransferState {
-  id: string,
-  connections: Array<string>,
-  files: Array<FileInformation>
+    id: string,
+    connections: Array<string>,
+    files: Array<FileInformation>
 }
 
 const initialState: TransferState = {
-  id: "",
-  connections: [],
-  files: []
+    id: "",
+    connections: [],
+    files: []
 };
 
 export const transferSlice = createSlice({
-  name: 'counter',
-  initialState,
-  reducers: {
-    setId: (state, action: PayloadAction<string>) => {
-      state.id = action.payload;
+    name: 'counter',
+    initialState,
+    reducers: {
+        setId: (state, action: PayloadAction<string>) => {
+            state.id = action.payload;
+        },
+        newConnection: (state, action: PayloadAction<string>) => {
+            state.connections.push(action.payload);
+        },
+        disconnect: (state) => {
+            state.connections = [];
+            state.id = "";
+        },
+        addFile: (state, action: PayloadAction<FileDescription>) => {
+            let fileDescription = action.payload;
+            let fileId = uuidv4();
+            let file = new FileInformation(fileId, fileDescription.name, fileDescription.url);
+            state.files.push(file);
+        }
     },
-    newConnection: (state, action: PayloadAction<string>) => {
-      state.connections.push(action.payload);
-    },
-    disconnect: (state) => {
-      state.connections = [];
-      state.id = "";
-    },
-    addFile: (state, action: PayloadAction<FileDescription>) => {
-      let fileDescription = action.payload;
-      let fileId = uuidv4();
-      let file = new FileInformation(fileId, fileDescription.name, fileDescription.url);
-      state.files.push(file);
-    }
-  },
 });
 
-export const { setId, newConnection, disconnect, addFile } = transferSlice.actions;
+export const {setId, newConnection, disconnect, addFile} = transferSlice.actions;
 
 export const newPeer = (): AppThunk => dispatch => peer.newPeer(dispatch);
 export const connectTo = (id: string): AppThunk => dispatch => peer.connectTo(id, dispatch);

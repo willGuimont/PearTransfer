@@ -1,17 +1,11 @@
 import React from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import './App.css';
 import {Transfer} from './features/transfer/Transfer'
 import {theme} from './theme/theme'
 import {ThemeProvider} from '@material-ui/styles';
 import {About} from './features/about/About';
-import {AppBar, Button, IconButton, makeStyles, Toolbar} from "@material-ui/core";
-import MenuIcon from '@material-ui/icons/Menu';
+import {AppBar, Button, makeStyles, Toolbar} from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,7 +46,6 @@ function App() {
                             <Route path="/about">
                                 <About/>
                             </Route>
-                            <Route path="/:id" children={<Transfer/>}/>
                             <Route path="/" children={<Transfer/>}/>
                         </Switch>
                     </Router>
