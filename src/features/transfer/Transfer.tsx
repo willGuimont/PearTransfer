@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {connectTo, newPeer, selectConnections, selectFiles, selectId, sendFile,} from './transferSlice';
 import styles from './Transfer.module.css';
 import {useLocation} from 'react-router-dom';
+import {Button} from "@material-ui/core";
 
 export function Transfer() {
     const id = useSelector(selectId);
@@ -27,19 +28,20 @@ export function Transfer() {
 
     return (
         <div className={styles.transfer}>
-            <h1>Peer transfer</h1>
+            <img src={process.env.PUBLIC_URL + '/pear2pear.png'} className="App-logo" alt="logo" width="20%"/>
+            <h1>Pear transfer</h1>
             <div>
                 {id || "Please click 'Create pear'"}
                 <br/>
-                <button onClick={() => dispatch(newPeer())}>
+                <Button variant="contained" color="primary" onClick={() => dispatch(newPeer())}>
                     Create pear
-                </button>
+                </Button>
                 <br/>
                 <input type="text" placeholder="Other person's id" onChange={e => setPeerConnectionId(e.target.value)}/>
                 <br/>
-                <button onClick={e => dispatch(connectTo(peerConnectionId))}>
+                <Button variant="contained" color="primary" onClick={e => dispatch(connectTo(peerConnectionId))}>
                     Connect
-                </button>
+                </Button>
                 <br/>
                 {connections.map((x, i) => <div key={i}>{x}</div>)}
                 <br/>
