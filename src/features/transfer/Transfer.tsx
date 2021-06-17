@@ -4,6 +4,7 @@ import { connectTo, newPeer, selectConnections, selectFiles, selectId, sendFile,
 import styles from './Transfer.module.css';
 import { useLocation } from 'react-router-dom';
 import { Button } from "@material-ui/core";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export function Transfer() {
     const id = useSelector(selectId);
@@ -15,7 +16,6 @@ export function Transfer() {
 
     const search = useLocation().search;
     const urlId = new URLSearchParams(search).get('id');
-    // Test url params: {urlId || "no url id"} <br/>
 
     let handleFiles = async (files: FileList | null) => {
         if (files != null) {
@@ -27,9 +27,14 @@ export function Transfer() {
     }
 
     useEffect(() => {
-        console.log(id);
         if (id === "") {
             dispatch(newPeer());
+            setTimeout(() => {
+                if (urlId != null) {
+                    console.log(urlId);
+                    dispatch(connectTo(urlId));
+                }
+              }, 500);
         }
     }, []);
 
@@ -45,6 +50,12 @@ export function Transfer() {
                 <Button variant="contained" color="primary" onClick={e => dispatch(connectTo(peerConnectionId))}>
                     Connect
                 </Button>
+                <br />
+                <CopyToClipboard text={window.location.href + `?id=${id}`}>
+                    <Button variant="contained" color="primary">
+                        Get sharable link
+                    </Button>
+                </CopyToClipboard>
                 <br />
                 {connections.map((x, i) => <div key={i}>{x}</div>)}
                 <br />
