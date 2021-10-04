@@ -30,7 +30,7 @@ function App() {
             <React.StrictMode>
                 <ThemeProvider theme={theme}>
                     <CssBaseline>
-                        <Router>
+                        <Router basename="/PearTransfer">
                             <AppBar position="static">
                                 <Toolbar>
                                     <Link to="/" className={classes.title}>
