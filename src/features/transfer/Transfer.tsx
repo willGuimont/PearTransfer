@@ -33,7 +33,7 @@ export function Transfer() {
                 if (urlId != null) {
                     dispatch(connectTo(urlId));
                 }
-            }, 500);
+            }, 1000);
         }
     }, []);
 
