@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {connectTo, newPeer, selectConnections, selectFiles, selectId, sendFile,} from './transferSlice';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { connectTo, newPeer, selectConnections, selectFiles, selectId, sendFile, } from './transferSlice';
 import styles from './Transfer.module.css';
-import {useLocation} from 'react-router-dom';
-import {Button} from "@material-ui/core";
-import {CopyToClipboard} from "react-copy-to-clipboard";
+import { useLocation } from 'react-router-dom';
+import { Button } from "@material-ui/core";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export function Transfer() {
     const id = useSelector(selectId);
@@ -12,7 +12,6 @@ export function Transfer() {
     const files = useSelector(selectFiles);
     const dispatch = useDispatch();
     const [peerConnectionId, setPeerConnectionId] = useState("");
-    const [data, setData] = useState("");
 
     const search = useLocation().search;
     const urlId = new URLSearchParams(search).get('id');
@@ -39,39 +38,60 @@ export function Transfer() {
 
     return (
         <div className={styles.transfer}>
-            <img src={process.env.PUBLIC_URL + '/pear2pear.png'} className="App-logo" alt="logo" width="20%"/>
-            <h1>Pear transfer</h1>
+            <img src={process.env.PUBLIC_URL + '/pear2pear.png'} className="App-logo" alt="logo" width="10%" />
+            <h2>Pear transfer</h2>
             <div>
-                {id}
-                <br/>
-                <input type="text" placeholder="Other person's id" onChange={e => setPeerConnectionId(e.target.value)}/>
-                <br/>
-                <Button variant="contained" color="primary" onClick={e => dispatch(connectTo(peerConnectionId))}>
-                    Connect
-                </Button>
-                <br/>
-                <CopyToClipboard text={window.location.href + `?id=${id}`}>
-                    <Button variant="contained" color="primary">
-                        Get sharable link
-                    </Button>
-                </CopyToClipboard>
-                <br/>
-                {connections.map((x, i) => <div key={i}>{x}</div>)}
-                <br/>
-                <br/>
-                <label>
-                    File upload
-                    <br/>
-                    <input type="file" onChange={e => handleFiles(e.target.files)}/>
-                </label>
-                <br/>
-                <p>Files</p>
-                <br/>
-                {files.map((x, i) =>
-                    <div key={x.id}>
-                        <a href={x.url} download={x.name}>{x.name}</a>
+                <div>
+                    Your pear id: <b>{id}</b>
+                </div>
+                <div className={styles.connectContainer}>
+                    <input type="text" placeholder="Add a pear" onChange={e => setPeerConnectionId(e.target.value)} className={styles.pearInput} />
+                    <div className={styles.pearButtonContainer}>
+                        <Button variant="contained" color="primary" onClick={e => dispatch(connectTo(peerConnectionId))}>
+                            Connect
+                        </Button>
                     </div>
-                )}
+                </div>
+
+                <div className={styles.pearButtonContainer}>
+                    <CopyToClipboard text={window.location.href + `?id=${id}`}>
+                        <Button variant="contained" color="primary" className={styles.pearButtonContainer}>
+                            Get sharable link
+                        </Button>
+                    </CopyToClipboard>
+                </div>
+
+                <br />
+                <br />
+
+                <div>
+                    <div>Connected to:</div>
+                    {connections.map((x, i) => <div key={i}><b>{x}</b></div>)}
+                </div>
+
+                <br />
+
+                <h2>Files</h2>
+                <div className={styles.files}>
+                    <div className={styles.filesUpload}>
+                        <label>
+                            File upload
+                            <br />
+                            <input type="file" onChange={e => handleFiles(e.target.files)} />
+                        </label>
+                    </div>
+                    <div className={styles.filesList}>
+                        <div>Received files</div>
+                        {files.map((x, i) =>
+                            <div key={x.id}>
+                                <a href={x.url} download={x.name}>{x.name}</a>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <br />
+
             </div>
         </div>
     );
