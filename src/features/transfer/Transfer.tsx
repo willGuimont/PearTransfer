@@ -34,11 +34,11 @@ export function Transfer() {
                 }
             }, 1000);
         }
-    }, []);
+    });
 
     return (
         <div className={styles.transfer}>
-            <img src={process.env.PUBLIC_URL + '/pear2pear.png'} className="App-logo" alt="logo" width="10%" />
+            <img src={process.env.PUBLIC_URL + '/pear2pear.png'} className={styles.appLogo} alt="logo" />
             <h2>Pear transfer</h2>
             <div>
                 <div>

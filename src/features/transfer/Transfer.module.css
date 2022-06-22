@@ -1,3 +1,13 @@
+.appLogo {
+    width: 10%;
+}
+
+@media only screen and (max-width: 600px) {
+    .appLogo {
+        width: 50%;
+    }
+}
+
 .transfer {
     text-align: center;
     min-height: 90vh;
@@ -29,7 +39,7 @@
     justify-content: center;
 }
 
-.connectContainer > * {
+.connectContainer>* {
     margin: 0.5em;
 }
 
