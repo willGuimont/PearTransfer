@@ -38,7 +38,7 @@ export function Transfer() {
 
     return (
         <div className={styles.transfer}>
-            <img src={process.env.PUBLIC_URL + '/pear2pear.png'} className={styles.appLogo} alt="logo" />
+            <img src={process.env.PUBLIC_URL + '/pear2pear.webp'} className={styles.appLogo} alt="logo" />
             <h2>Pear transfer</h2>
             <div>
                 <div>

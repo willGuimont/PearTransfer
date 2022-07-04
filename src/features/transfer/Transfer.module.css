@@ -1,5 +1,6 @@
 .appLogo {
     width: 10%;
+    padding-bottom: 1rem;
 }
 
 @media only screen and (max-width: 600px) {
